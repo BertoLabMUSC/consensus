@@ -1,0 +1,53 @@
+Java Comand
+
+Hi Stefano,
+
+no problem, I would be stressed, too.
+
+I attached the two programs to that mail.
+Obviously, correlation.jar starts the spearman correlation calculation.
+You need two files:
+    - transcription factors
+    - Genes
+
+The layout of this files has to be same as you provided me for the
+BrainSpan project.
+The program detects the amount of cores available on the machine and
+uses all of them. Do not run this on machines with other tasks with big
+files (would be mean for the others).
+
+
+The output is a txt file with all genes as columns and TFs as rows. The
+cells of the matrix is the spearman rho value for the row/cell pair.
+
+This file is needed for the wto calculation (wto.jar). wto.jar expects a
+path with these txt files and calculates for each of them a wto network.
+The output is the wto network (gzipped) and a small summary (*.bins)
+with a binned summary how the wto are distributed between -1 and 1.
+
+
+How to run it from the shell:
+
+java -jar -Xmx25G correlation.jar file_TF file_Genes
+
+
+java -jar -Xmx25G wto.jar folder_containing_output_of_correlation.jar
+numbers_of_you_want_to_use
+
+The programs are pretty fast, for the amygdala data it takes around 15
+minutes.
+
+
+Hint: The -Xmx parameter controls how much memory the program can use.
+Since the programs are using matrices don't be mean with that parameter.
+Especially the wto consumes some memory because it stores the TFvsGenes,
+TFvsTF and the matrix product at runtime.
+
+The filtering should be applied between these two programs.
+
+You can access the source code with this command:
+
+
+          git clone http://git2.gurkware.de/daniel/random_wto.git
+
+Git should be installed on any BioInf machine.
